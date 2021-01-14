@@ -31,10 +31,11 @@ func (e *entity) SaveHistory() {
 
 func (e *entity) ProblemInOrder() {
 	currentNum := int(e.history.Progress)
+	fmt.Println(currentNum)
 	for index, problem := range e.problemList[currentNum:] {
 		e.SaveHistory()
 		// 判断是否一次答对
-		switch showProblem(problem, index+1, len(e.problemList)+1) {
+		switch showProblem(problem, currentNum+index+1, len(e.problemList)+1) {
 		case quit:
 			e.SaveHistory()
 			fmt.Println("保存刷题记录成功，正在退出...")
