@@ -11,7 +11,7 @@ import (
 
 func showProblem(problem file.Problem, begin, end int) status {
 	var stats status = correct
-	var answer string
+	var answer, getchar string
 	for {
 		clear()
 		fmt.Printf("%d/%d\n", begin, end)
@@ -31,6 +31,11 @@ func showProblem(problem file.Problem, begin, end int) status {
 			break
 		} else if answer == "quit" {
 			return quit
+		} else if answer == "ans" {
+			fmt.Printf("答案为%s，回车继续...\n", problem.Answer)
+			fmt.Scanln(&getchar)
+			// 直接看答案当错误处理
+			return wrong
 		}
 		stats = wrong
 	}
