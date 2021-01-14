@@ -32,6 +32,7 @@ func (e *entity) SaveHistory() {
 func (e *entity) ProblemInOrder() {
 	currentNum := int(e.history.Progress)
 	for index, problem := range e.problemList[currentNum:] {
+		e.SaveHistory()
 		// 判断是否一次答对
 		switch showProblem(problem, index+1, len(e.problemList)+1) {
 		case quit:
@@ -59,6 +60,7 @@ func (e *entity) ProblemInOrder() {
 func (e *entity) ProblemInRandomOrder() {
 	var index int
 	for {
+		e.SaveHistory()
 		index = rand.Intn(len(e.problemList))
 		switch showProblem(e.problemList[index], 0, 0) {
 		case quit:
@@ -76,6 +78,7 @@ func (e *entity) ProblemInRandomOrder() {
 func (e *entity) ProblemForExam() {
 	var index int
 	for i := 0; i < 50; i++ {
+		e.SaveHistory()
 		for {
 			index = rand.Intn(len(e.problemList))
 			if (i < 40 && len(e.problemList[index].Answer) == 1) || (i >= 40 && len(e.problemList[index].Answer) > 1) {
@@ -100,6 +103,7 @@ func (e *entity) ProblemWrongBefore() {
 	tmp := make([]float64, length)
 	copy(tmp, e.history.ErrorProblems)
 	for num, index := range tmp {
+		e.SaveHistory()
 		switch showProblem(e.problemList[int(index)], num+1, length) {
 		case quit:
 			e.SaveHistory()
