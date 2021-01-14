@@ -33,7 +33,6 @@ func (e *entity) SaveHistory() {
 
 func (e *entity) ProblemInOrder() {
 	currentNum := int(e.history.Progress)
-	fmt.Println(currentNum)
 	for index, problem := range e.problemList[currentNum:] {
 		e.SaveHistory()
 		// 判断是否一次答对
@@ -47,7 +46,7 @@ func (e *entity) ProblemInOrder() {
 				e.history.ErrorProblems = append(e.history.ErrorProblems, float64(index))
 			}
 		}
-		e.history.Progress = float64(index)
+		e.history.Progress = float64(currentNum + index + 1)
 	}
 	fmt.Println("题目已刷完，是否清空以便二刷？(y/n)")
 	var answer string
