@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"time"
 
 	"github.com/amtoaer/goqut/file"
 )
@@ -23,6 +24,7 @@ func (e *entity) Init(sub file.Subject) {
 	e.subject = sub
 	e.problemList = file.LoadData(sub)
 	e.history = file.ReadArchive(sub)
+	rand.Seed(time.Now().UnixNano())
 }
 
 func (e *entity) SaveHistory() {
