@@ -6,6 +6,8 @@ import (
 	"os"
 	"os/exec"
 
+	"strings"
+
 	"github.com/amtoaer/goqut/file"
 )
 
@@ -27,7 +29,7 @@ func showProblem(problem file.Problem, begin, end int) status {
 		}
 		fmt.Printf("请输入答案：")
 		fmt.Scanf("%s", &answer)
-		if answer == problem.Answer {
+		if strings.ToUpper(answer) == problem.Answer {
 			break
 		} else if answer == "quit" {
 			return quit
