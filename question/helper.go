@@ -15,15 +15,15 @@ func showProblem(problem file.Problem, begin, end int) status {
 	for {
 		clear()
 		fmt.Printf("%d/%d\n", begin, end)
-		if stats != correct {
-			fmt.Println("答案错误")
-		}
 		if len(problem.Answer) > 1 {
 			fmt.Println("注意：此题为多选题")
 		}
 		fmt.Println(problem.Description)
 		for _, item := range problem.Choice {
 			fmt.Println(item)
+		}
+		if stats != correct {
+			fmt.Println("答案错误")
 		}
 		fmt.Printf("请输入答案：")
 		fmt.Scanf("%s", &answer)
