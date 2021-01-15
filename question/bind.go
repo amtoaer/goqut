@@ -35,7 +35,7 @@ func (e *entity) ProblemInOrder() {
 	currentNum := int(e.history.Progress)
 	for index, problem := range e.problemList[currentNum:] {
 		// 判断是否一次答对
-		switch showProblem(problem, currentNum+index+1, len(e.problemList)+1) {
+		switch showProblem(problem, currentNum+index+1, len(e.problemList)) {
 		case quit:
 			fmt.Println("正在退出...")
 			os.Exit(0)
