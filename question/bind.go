@@ -34,12 +34,10 @@ func (e *entity) SaveHistory() {
 func (e *entity) ProblemInOrder() {
 	currentNum := int(e.history.Progress)
 	for index, problem := range e.problemList[currentNum:] {
-		e.SaveHistory()
 		// 判断是否一次答对
 		switch showProblem(problem, currentNum+index+1, len(e.problemList)+1) {
 		case quit:
-			e.SaveHistory()
-			fmt.Println("保存刷题记录成功，正在退出...")
+			fmt.Println("正在退出...")
 			os.Exit(0)
 		case wrong:
 			if !isIn(index, e.history.ErrorProblems) {
@@ -47,40 +45,39 @@ func (e *entity) ProblemInOrder() {
 			}
 		}
 		e.history.Progress = float64(currentNum + index + 1)
+		e.SaveHistory()
 	}
-	fmt.Println("题目已刷完，是否清空以便二刷？(y/n)")
+	fmt.Println("题目已刷完，是否清空刷题记录以便二刷？(y/n)")
 	var answer string
 	fmt.Scanf("%s", &answer)
 	if answer == "y" {
 		e.history.Progress = 0
+		e.SaveHistory()
 		fmt.Println("已清空，正在退出...")
 	}
-	e.SaveHistory()
 	os.Exit(0)
 }
 
 func (e *entity) ProblemInRandomOrder() {
 	var index int
 	for {
-		e.SaveHistory()
 		index = rand.Intn(len(e.problemList))
 		switch showProblem(e.problemList[index], 0, 0) {
 		case quit:
-			e.SaveHistory()
-			fmt.Println("保存刷题记录成功，正在退出...")
+			fmt.Println("正在退出...")
 			os.Exit(0)
 		case wrong:
 			if !isIn(index, e.history.ErrorProblems) {
 				e.history.ErrorProblems = append(e.history.ErrorProblems, float64(index))
 			}
 		}
+		e.SaveHistory()
 	}
 }
 
 func (e *entity) ProblemForExam() {
 	var index int
 	for i := 0; i < 50; i++ {
-		e.SaveHistory()
 		for {
 			index = rand.Intn(len(e.problemList))
 			if (i < 40 && len(e.problemList[index].Answer) == 1) || (i >= 40 && len(e.problemList[index].Answer) > 1) {
@@ -89,7 +86,6 @@ func (e *entity) ProblemForExam() {
 		}
 		switch showProblem(e.problemList[index], i+1, 50) {
 		case quit:
-			e.SaveHistory()
 			fmt.Println("保存刷题记录成功，正在退出...")
 			os.Exit(0)
 		case wrong:
@@ -97,7 +93,10 @@ func (e *entity) ProblemForExam() {
 				e.history.ErrorProblems = append(e.history.ErrorProblems, float64(index))
 			}
 		}
+		e.SaveHistory()
 	}
+	fmt.Println("模拟考试结束，正在退出...")
+	os.Exit(0)
 }
 
 func (e *entity) ProblemWrongBefore() {
@@ -105,17 +104,15 @@ func (e *entity) ProblemWrongBefore() {
 	tmp := make([]float64, length)
 	copy(tmp, e.history.ErrorProblems)
 	for num, index := range tmp {
-		e.SaveHistory()
 		switch showProblem(e.problemList[int(index)], num+1, length) {
 		case quit:
-			e.SaveHistory()
 			fmt.Println("保存刷题记录成功，正在退出...")
 			os.Exit(0)
 		case correct:
 			e.history.ErrorProblems = remove(index, e.history.ErrorProblems)
 		}
+		e.SaveHistory()
 	}
 	fmt.Println("错题本已刷完，正在退出...")
-	e.SaveHistory()
 	os.Exit(0)
 }

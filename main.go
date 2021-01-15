@@ -15,7 +15,7 @@ func main() {
 	fmt.Println(`请输入科目：
 	1. 马原
 	2. 毛概`)
-	fmt.Scanf("%d", &choice)
+	fmt.Scan(&choice)
 	switch choice {
 	case 1:
 		subject = file.Mayuan
@@ -30,7 +30,7 @@ func main() {
 	2. 随机刷题
 	3. 模拟考试
 	4. 错题本`)
-	fmt.Scanf("%d", &choice)
+	fmt.Scan(&choice)
 	switch choice {
 	case 1:
 		handler.ProblemInOrder()

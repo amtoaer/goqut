@@ -1,19 +1,29 @@
 package question
 
 import (
+	"os"
+	"os/exec"
 	"runtime"
 
 	"github.com/amtoaer/goqut/file"
 )
 
-var clearScreen string
+var clear func()
 
 func init() {
 	switch runtime.GOOS {
 	case "windows":
-		clearScreen = "cls"
+		clear = func() {
+			cmd := exec.Command("cmd", "/c", "cls")
+			cmd.Stdout = os.Stdout
+			cmd.Run()
+		}
 	default:
-		clearScreen = "clear"
+		clear = func() {
+			cmd := exec.Command("clear")
+			cmd.Stdout = os.Stdout
+			cmd.Run()
+		}
 	}
 }
 

@@ -3,9 +3,6 @@ package question
 import (
 	"fmt"
 
-	"os"
-	"os/exec"
-
 	"strings"
 
 	"github.com/amtoaer/goqut/file"
@@ -28,7 +25,7 @@ func showProblem(problem file.Problem, begin, end int) status {
 			fmt.Println("答案错误")
 		}
 		fmt.Printf("请输入答案：")
-		fmt.Scanf("%s", &answer)
+		fmt.Scan(&answer)
 		if strings.ToUpper(answer) == problem.Answer {
 			break
 		} else if answer == "quit" {
@@ -60,10 +57,4 @@ func remove(num float64, slice []float64) []float64 {
 		}
 	}
 	return slice
-}
-
-func clear() {
-	cmd := exec.Command(clearScreen)
-	cmd.Stdout = os.Stdout
-	cmd.Run()
 }
