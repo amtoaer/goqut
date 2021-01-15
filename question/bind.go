@@ -49,13 +49,12 @@ func (e *entity) ProblemInOrder() {
 	}
 	fmt.Println("题目已刷完，是否清空刷题记录以便二刷？(y/n)")
 	var answer string
-	fmt.Scanf("%s", &answer)
+	fmt.Scan(&answer)
 	if answer == "y" {
 		e.history.Progress = 0
 		e.SaveHistory()
 		fmt.Println("已清空，正在退出...")
 	}
-	os.Exit(0)
 }
 
 func (e *entity) ProblemInRandomOrder() {
@@ -96,7 +95,6 @@ func (e *entity) ProblemForExam() {
 		e.SaveHistory()
 	}
 	fmt.Println("模拟考试结束，正在退出...")
-	os.Exit(0)
 }
 
 func (e *entity) ProblemWrongBefore() {
@@ -114,5 +112,4 @@ func (e *entity) ProblemWrongBefore() {
 		e.SaveHistory()
 	}
 	fmt.Println("错题本已刷完，正在退出...")
-	os.Exit(0)
 }
