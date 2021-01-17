@@ -41,10 +41,10 @@ func (e *entity) ProblemInOrder() {
 			os.Exit(0)
 		case wrong:
 			if !isIn(index, e.history.ErrorProblems) {
-				e.history.ErrorProblems = append(e.history.ErrorProblems, float64(index))
+				e.history.ErrorProblems = append(e.history.ErrorProblems, index)
 			}
 		}
-		e.history.Progress = float64(currentNum + index + 1)
+		e.history.Progress = currentNum + index + 1
 		e.SaveHistory()
 	}
 	fmt.Println("题目已刷完，是否清空刷题记录以便二刷？(y/n)")
@@ -67,7 +67,7 @@ func (e *entity) ProblemInRandomOrder() {
 			os.Exit(0)
 		case wrong:
 			if !isIn(index, e.history.ErrorProblems) {
-				e.history.ErrorProblems = append(e.history.ErrorProblems, float64(index))
+				e.history.ErrorProblems = append(e.history.ErrorProblems, index)
 			}
 		}
 		e.SaveHistory()
@@ -89,7 +89,7 @@ func (e *entity) ProblemForExam() {
 			os.Exit(0)
 		case wrong:
 			if !isIn(index, e.history.ErrorProblems) {
-				e.history.ErrorProblems = append(e.history.ErrorProblems, float64(index))
+				e.history.ErrorProblems = append(e.history.ErrorProblems, index)
 			}
 		}
 		e.SaveHistory()
@@ -99,7 +99,7 @@ func (e *entity) ProblemForExam() {
 
 func (e *entity) ProblemWrongBefore() {
 	length := len(e.history.ErrorProblems)
-	tmp := make([]float64, length)
+	tmp := make([]int, length)
 	copy(tmp, e.history.ErrorProblems)
 	for num, index := range tmp {
 		switch showProblem(e.problemList[int(index)], num+1, length) {

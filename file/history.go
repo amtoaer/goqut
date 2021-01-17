@@ -13,13 +13,13 @@ import (
 
 // History 存储顺序刷题的进度和错误题目的题号
 type History struct {
-	Progress      float64
-	ErrorProblems []float64
+	Progress      int
+	ErrorProblems []int
 }
 
 var defaultHistory = &History{
 	Progress:      0,
-	ErrorProblems: []float64{},
+	ErrorProblems: []int{},
 }
 
 func writeInitArchive(path string) {

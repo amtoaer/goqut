@@ -41,16 +41,16 @@ func showProblem(problem file.Problem, begin, end int) status {
 	return stats
 }
 
-func isIn(num int, slice []float64) bool {
+func isIn(num int, slice []int) bool {
 	for _, item := range slice {
-		if num == int(item) {
+		if num == item {
 			return true
 		}
 	}
 	return false
 }
 
-func remove(num float64, slice []float64) []float64 {
+func remove(num int, slice []int) []int {
 	for index, value := range slice {
 		if value == num {
 			return append(slice[:index], slice[index+1:]...)
