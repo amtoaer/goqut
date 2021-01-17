@@ -7,6 +7,8 @@
 </p>
 
 ## 介绍
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Famtoaer%2Fgoqut.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Famtoaer%2Fgoqut?ref=badge_shield)
+
 本项目为马原、毛概的选择题刷题工具，题目大体按照章节顺序排布。如遇题目缺字、错字等问题，或者有功能上的建议，欢迎提`issue`反馈。
 
 ## 说明
@@ -81,3 +83,6 @@
 > **windows 系统请使用 1.0.8 及之后的版本。**
 
 下载[release](https://github.com/amtoaer/goqut/releases)页面的相应系统版本，双击运行。
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Famtoaer%2Fgoqut.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Famtoaer%2Fgoqut?ref=badge_large)
