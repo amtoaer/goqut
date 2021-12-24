@@ -2,11 +2,14 @@ package question
 
 import (
 	"fmt"
+	"runtime"
 
 	"strings"
 
 	"github.com/amtoaer/goqut/file"
 )
+
+var isWindows = runtime.GOOS == "windows"
 
 func showProblem(problem file.Problem, begin, end int) status {
 	var stats status = correct
@@ -33,6 +36,9 @@ func showProblem(problem file.Problem, begin, end int) status {
 		} else if answer == "ans" {
 			fmt.Printf("答案为%s，回车继续...\n", problem.Answer)
 			fmt.Scanln(&getchar)
+			if isWindows {
+				fmt.Scanln(&getchar)
+			}
 			// 直接看答案当错误处理
 			return wrong
 		}
