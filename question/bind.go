@@ -76,7 +76,13 @@ func (e *entity) ProblemInRandomOrder() {
 
 func (e *entity) ProblemForExam() {
 	var index int
-	for i := 0; i < 50; i++ {
+
+	// 模拟考试分数记录
+	var score int
+	// 模拟考试错题对应题号记录
+	var wrongProblems []int
+
+	for i := 0; i < 5; i++ {
 		for {
 			index = rand.Intn(len(e.problemList))
 			if (i < 40 && len(e.problemList[index].Answer) == 1) || (i >= 40 && len(e.problemList[index].Answer) > 1) {
@@ -84,17 +90,53 @@ func (e *entity) ProblemForExam() {
 			}
 		}
 		switch showProblem(e.problemList[index], i+1, 50) {
+		// 第一次答对才加分
+		case correct:
+			score++
 		case quit:
 			fmt.Println("保存刷题记录成功，正在退出...")
 			os.Exit(0)
 		case wrong:
+			wrongProblems = append(wrongProblems, index)
 			if !isIn(index, e.history.ErrorProblems) {
 				e.history.ErrorProblems = append(e.history.ErrorProblems, index)
 			}
 		}
 		e.SaveHistory()
 	}
-	fmt.Println("模拟考试结束，正在退出...")
+
+	clear()
+	fmt.Println("模拟考试结束，本次的得分是：", score)
+	// 打印本次考试错题的题号
+	fmt.Println("错题在题库中的编号为：")
+	for _, item := range wrongProblems {
+		fmt.Printf("     No.%d\n", item+1)
+	}
+
+	// 选择是否查看本次模拟的错题
+	fmt.Println("是否查看错题？(y 查看 / n 退出程序)")
+	var answer, getchar string
+
+	// 循环读取输入，直到输入y或n
+	for {
+		_, _ = fmt.Scan(&answer)
+		switch answer {
+		case "y":
+			for num, index := range wrongProblems {
+				showProblem(e.problemList[index], num+1, len(wrongProblems))
+			}
+			fmt.Println("本次测试的错题已练习完毕，按回车退出...")
+			if isWindows {
+				_, _ = fmt.Scanln(&getchar)
+			}
+			os.Exit(0)
+		case "n":
+			fmt.Println("模拟考试结束，正在退出...")
+			time.Sleep(time.Second * 2)
+			os.Exit(0)
+		}
+		fmt.Println("输入错误，请重新输入(y 查看 / n 退出程序)：")
+	}
 }
 
 func (e *entity) ProblemWrongBefore() {
