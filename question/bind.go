@@ -82,7 +82,7 @@ func (e *entity) ProblemForExam() {
 	// 模拟考试错题对应题号记录
 	var wrongProblems []int
 
-	for i := 0; i < 5; i++ {
+	for i := 0; i < 50; i++ {
 		for {
 			index = rand.Intn(len(e.problemList))
 			if (i < 40 && len(e.problemList[index].Answer) == 1) || (i >= 40 && len(e.problemList[index].Answer) > 1) {
